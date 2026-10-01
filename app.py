@@ -28,8 +28,8 @@ if uploaded_file is not None:
 
                 api_key = "AQ.Ab8RN6KyIJBA8YdaAbZ6GqZYVLYB29AqXab0OjicMmoGLiuJmw"
                 
-                # Updated working model endpoint
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
+                # gemini-2.0-flash endpoint
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
 
                 prompt_text = (
                     "તમે એક કૃષિ વૈજ્ઞાનિક છો. આ ફોટાનું વિશ્લેષણ કરી ખેડૂત માટે સરળ ગુજરાતીમાં મુદ્દાસર જણાવો: "
