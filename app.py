@@ -5,8 +5,8 @@ from PIL import Image
 # પેજ સેટિંગ્સ
 st.set_page_config(page_title="કૃષિ રક્ષક AI", page_icon="🌱", layout="centered")
 
-# તમારી API Key
-API_KEY = "AQ.Ab8RN6Iwnnyq1D3r9mVNa0XTCuRer_bIuMuV2fKYppr0gTFX3A"
+# તમારી પૂરી અને સાચી API Key
+API_KEY = "AQ.Ab8RN6K8loPxUYK4FQkkN2punNiSY9tKVV5LoJvQW1VncVB9Tg"
 genai.configure(api_key=API_KEY)
 
 # શાળા અને માર્ગદર્શકનું નામ (હેડર)
@@ -73,5 +73,5 @@ if uploaded_file is not None:
                 st.components.v1.html(audio_html, height=90)
 
             except Exception as e:
-                st.error("માહિતી મેળવવામાં તકલીફ થઈ રહી છે. કૃપા કરીને ફરી પ્રયાસ કરો.")
+                st.error(f"વિશ્લેષણ કરવામાં ભૂલ આવી: {e}")
                 
