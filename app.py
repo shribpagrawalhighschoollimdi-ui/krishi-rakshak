@@ -4,7 +4,6 @@ import base64
 from PIL import Image
 import io
 
-# Page settings
 st.set_page_config(page_title="કૃષિ રક્ષક AI", page_icon="🌱", layout="centered")
 
 # School and Guide Details
@@ -28,8 +27,8 @@ if uploaded_file is not None:
 
                 api_key = "AQ.Ab8RN6KyIJBA8YdaAbZ6GqZYVLYB29AqXab0OjicMmoGLiuJmw"
                 
-                # ગૂગલ દ્વારા જણાવેલ સાચું મોડેલ: gemini-3.8-flash
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={api_key}"
+                # Model endpoint
+                url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
 
                 prompt_text = (
                     "તમે એક કૃષિ વૈજ્ઞાનિક છો. આ ફોટાનું વિશ્લેષણ કરી ખેડૂત માટે સરળ ગુજરાતીમાં મુદ્દાસર જણાવો: "
@@ -54,7 +53,12 @@ if uploaded_file is not None:
                     }]
                 }
 
-                headers = {'Content-Type': 'application/json'}
+                # Authorization header tarike key mokalvi
+                headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': f'Bearer {api_key}'
+                }
+
                 response = requests.post(url, headers=headers, json=payload)
                 data = response.json()
 
@@ -95,3 +99,4 @@ if uploaded_file is not None:
 
             except Exception as e:
                 st.error(f"વિશ્લેષણ કરવામાં ભૂલ આવી: {e}")
+                    
