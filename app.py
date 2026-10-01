@@ -28,8 +28,8 @@ if uploaded_file is not None:
 
                 api_key = "AQ.Ab8RN6KyIJBA8YdaAbZ6GqZYVLYB29AqXab0OjicMmoGLiuJmw"
                 
-                # gemini-2.0-flash endpoint
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+                # ગૂગલ દ્વારા જણાવેલ સાચું મોડેલ: gemini-3.8-flash
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key={api_key}"
 
                 prompt_text = (
                     "તમે એક કૃષિ વૈજ્ઞાનિક છો. આ ફોટાનું વિશ્લેષણ કરી ખેડૂત માટે સરળ ગુજરાતીમાં મુદ્દાસર જણાવો: "
@@ -95,4 +95,3 @@ if uploaded_file is not None:
 
             except Exception as e:
                 st.error(f"વિશ્લેષણ કરવામાં ભૂલ આવી: {e}")
-                    
