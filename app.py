@@ -2,14 +2,14 @@ import streamlit as st
 import google.generativeai as genai
 from PIL import Image
 
-# Page setting
+# પેજ સેટિંગ્સ
 st.set_page_config(page_title="કૃષિ રક્ષક AI", page_icon="🌱", layout="centered")
 
-# Tamari sachi API Key
-API_KEY = "AIzaSyDb5aHiqCWv5tFlg1HGl0lPdw1Y69sAavU"
+# અહીં તમારી નવી કી પેસ્ટ કરો (જે AIzaSy થી શરૂ થતી હોય)
+API_KEY = "AIzaSy_તમારી_નવી_કી_અહીં_મૂકો"
 genai.configure(api_key=API_KEY)
 
-# School and Guide Name
+# શાળા અને શિક્ષકનું નામ
 st.markdown("<h2 style='text-align: center; color: #2e7d32;'>🌱 કૃષિ રક્ષક AI</h2>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; margin-top: -10px;'>શ્રી બી. પી. અગ્રવાલ હાઈસ્કૂલ, લીમડી</h4>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #555;'>માર્ગદર્શક: શ્રી ધીરેન્દ્ર પરમાર | વિષય: AI દ્વારા બહેતર જીવન</p>", unsafe_allow_html=True)
@@ -22,16 +22,16 @@ if uploaded_file is not None:
     st.image(image, caption="પાડેલો ફોટો", use_container_width=True)
 
     if st.button("રોગ અને દવા વિશે તપાસ કરો 🔍", use_container_width=True):
-        with st.spinner("AI દ્વારા પાકની તપાસ થઈ રહી છે, કૃપા કરીને થોડી સેકન્ડ રાહ જુઓ..."):
+        with st.spinner("AI દ્વારા પાકની તપાસ થઈ રહી છે, થોડી સેકન્ડ રાહ જુઓ..."):
             try:
                 model = genai.GenerativeModel('gemini-1.5-flash')
                 prompt = """
-                તમે એક અનુભવી કૃષિ વૈજ્ઞાનિક (Plant Doctor) છો.
+                તમે એક અનુભવી કૃષિ વૈજ્ઞાનિક છો.
                 આ ફોટાનું નિરીક્ષણ કરી ખેડૂત મિત્ર માટે એકદમ સરળ અને શુદ્ધ ગુજરાતીમાં નીચે મુજબ જ મુદ્દાસર માહિતી આપો:
                 1. પાકનું નામ અને થયેલ રોગ કે જીવાતનું નામ.
                 2. રોગના મુખ્ય લક્ષણો.
                 3. રાસાયણિક તથા દેશી/ઓર્ગેનિક ઉપચાર (દવાનું ચોક્કસ નામ અને 15 લિટર પંપમાં નાખવાની ચોક્કસ માત્રા - મિલી કે ગ્રામમાં).
-                4. દવા છાંટવાની પદ્ધતિ અને યોગ્ય સમય (સવારે કે સાંજે).
+                4. દવા છાંટવાની પદ્ધતિ અને યોગ્ય સમય.
                 5. કેટલા દિવસમાં રોગ સંપૂર્ણ મટી જશે.
                 ખેડૂત સહેલાઈથી સમજી શકે તેવી વ્યવહારુ ભાષા રાખવી.
                 """
@@ -69,5 +69,5 @@ if uploaded_file is not None:
                 st.components.v1.html(audio_html, height=90)
 
             except Exception as e:
-                st.error(f"Error aavi: {e}")
+                st.error(f"વિશ્લેષણ કરવામાં ભૂલ આવી: {e}")
                 
