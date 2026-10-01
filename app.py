@@ -1,17 +1,20 @@
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 from PIL import Image
 
-# પેજ સેટિંગ્સ
+# Page setting
 st.set_page_config(page_title="કૃષિ રક્ષક AI", page_icon="🌱", layout="centered")
 
-# શાળા અને માર્ગદર્શકનું નામ (હેડર)
+# Tamari sachi API Key
+API_KEY = "AIzaSyDb5aHiqCWv5tFlg1HGl0lPdw1Y69sAavU"
+genai.configure(api_key=API_KEY)
+
+# School and Guide Name
 st.markdown("<h2 style='text-align: center; color: #2e7d32;'>🌱 કૃષિ રક્ષક AI</h2>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; margin-top: -10px;'>શ્રી બી. પી. અગ્રવાલ હાઈસ્કૂલ, લીમડી</h4>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #555;'>માર્ગદર્શક: શ્રી ધીરેન્દ્ર પરમાર | વિષય: AI દ્વારા બહેતર જીવન</p>", unsafe_allow_html=True)
 st.write("---")
 
-# કેમેરા દ્વારા ફોટો પાડવાનો વિકલ્પ
 uploaded_file = st.camera_input("છોડ અથવા રોગિષ્ટ પાંદડાનો ફોટો પાડો")
 
 if uploaded_file is not None:
@@ -21,9 +24,7 @@ if uploaded_file is not None:
     if st.button("રોગ અને દવા વિશે તપાસ કરો 🔍", use_container_width=True):
         with st.spinner("AI દ્વારા પાકની તપાસ થઈ રહી છે, કૃપા કરીને થોડી સેકન્ડ રાહ જુઓ..."):
             try:
-                # ગૂગલ ક્લાયન્ટ સેટઅપ
-                client = genai.Client(api_key="AQ.Ab8RN6K8loPxUYK4FQkkN2punNiSY9tKVV5LoJvQW1VncVB9Tg")
-
+                model = genai.GenerativeModel('gemini-1.5-flash')
                 prompt = """
                 તમે એક અનુભવી કૃષિ વૈજ્ઞાનિક (Plant Doctor) છો.
                 આ ફોટાનું નિરીક્ષણ કરી ખેડૂત મિત્ર માટે એકદમ સરળ અને શુદ્ધ ગુજરાતીમાં નીચે મુજબ જ મુદ્દાસર માહિતી આપો:
@@ -34,18 +35,13 @@ if uploaded_file is not None:
                 5. કેટલા દિવસમાં રોગ સંપૂર્ણ મટી જશે.
                 ખેડૂત સહેલાઈથી સમજી શકે તેવી વ્યવહારુ ભાષા રાખવી.
                 """
-
-                response = client.models.generate_content(
-                    model='gemini-2.5-flash',
-                    contents=[prompt, image]
-                )
+                response = model.generate_content([prompt, image])
                 result_text = response.text
 
                 st.success("✅ તપાસ પૂર્ણ થઈ ગઈ છે!")
                 st.markdown("### 📋 રોગ અને ઉપચારની વિગત:")
                 st.write(result_text)
 
-                # સ્પીકર માટે ટેક્સ્ટ શુદ્ધિકરણ
                 clean_text = (
                     result_text.replace('\n', ' ')
                     .replace('*', '')
@@ -54,7 +50,6 @@ if uploaded_file is not None:
                     .replace("'", "")
                 )
 
-                # ગુજરાતી અવાજમાં બોલવા માટેનું સ્પીકર બટન
                 audio_html = f"""
                 <div style="margin-top: 20px;">
                     <button onclick="speakText()" style="background-color: #2e7d32; color: white; padding: 14px 20px; border: none; border-radius: 8px; font-size: 17px; cursor: pointer; width: 100%; font-weight: bold;">
@@ -74,5 +69,5 @@ if uploaded_file is not None:
                 st.components.v1.html(audio_html, height=90)
 
             except Exception as e:
-                st.error(f"વિશ્લેષણ કરવામાં ભૂલ આવી: {e}")
+                st.error(f"Error aavi: {e}")
                 
