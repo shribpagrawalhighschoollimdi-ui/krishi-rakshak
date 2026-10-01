@@ -5,7 +5,7 @@ from PIL import Image
 # પેજ સેટિંગ્સ
 st.set_page_config(page_title="કૃષિ રક્ષક AI", page_icon="🌱", layout="centered")
 
-# તમારી API Key અહીં પહેલેથી જ સેટ કરી દીધી છે
+# તમારી API Key
 API_KEY = "AQ.Ab8RN6Iwnnyq1D3r9mVNa0XTCuRer_bIuMuV2fKYppr0gTFX3A"
 genai.configure(api_key=API_KEY)
 
@@ -20,7 +20,7 @@ uploaded_file = st.camera_input("છોડ અથવા રોગિષ્ટ �
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption="પાડેલો ફોટો", use_column_width=True)
+    st.image(image, caption="પાડેલો ફોટો", use_container_width=True)
 
     if st.button("રોગ અને દવા વિશે તપાસ કરો 🔍", use_container_width=True):
         with st.spinner("AI દ્વારા પાકની તપાસ થઈ રહી છે, કૃપા કરીને થોડી સેકન્ડ રાહ જુઓ..."):
