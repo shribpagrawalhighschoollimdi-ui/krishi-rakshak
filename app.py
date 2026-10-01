@@ -22,13 +22,14 @@ if uploaded_file is not None:
     if st.button("રોગ અને દવા વિશે તપાસ કરો 🔍", use_container_width=True):
         with st.spinner("AI દ્વારા પાકની તપાસ થઈ રહી છે, કૃપા કરીને થોડી સેકન્ડ રાહ જુઓ..."):
             try:
-                # Convert image to bytes
                 buffered = io.BytesIO()
                 image.save(buffered, format="JPEG")
                 img_b64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
                 api_key = "AQ.Ab8RN6KyIJBA8YdaAbZ6GqZYVLYB29AqXab0OjicMmoGLiuJmw"
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+                
+                # Updated working model endpoint
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}"
 
                 prompt_text = (
                     "તમે એક કૃષિ વૈજ્ઞાનિક છો. આ ફોટાનું વિશ્લેષણ કરી ખેડૂત માટે સરળ ગુજરાતીમાં મુદ્દાસર જણાવો: "
@@ -63,7 +64,6 @@ if uploaded_file is not None:
                     st.markdown("### 📋 રોગ અને ઉપચારની વિગત:")
                     st.write(result_text)
 
-                    # Text cleaning for speaker
                     clean_text = (
                         result_text.replace('\n', ' ')
                         .replace('*', '')
