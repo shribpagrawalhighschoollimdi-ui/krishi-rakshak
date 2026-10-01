@@ -1,13 +1,9 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 from PIL import Image
 
 # પેજ સેટિંગ્સ
 st.set_page_config(page_title="કૃષિ રક્ષક AI", page_icon="🌱", layout="centered")
-
-# તમારી પૂરી અને સાચી API Key
-API_KEY = "AQ.Ab8RN6K8loPxUYK4FQkkN2punNiSY9tKVV5LoJvQW1VncVB9Tg"
-genai.configure(api_key=API_KEY)
 
 # શાળા અને માર્ગદર્શકનું નામ (હેડર)
 st.markdown("<h2 style='text-align: center; color: #2e7d32;'>🌱 કૃષિ રક્ષક AI</h2>", unsafe_allow_html=True)
@@ -25,8 +21,9 @@ if uploaded_file is not None:
     if st.button("રોગ અને દવા વિશે તપાસ કરો 🔍", use_container_width=True):
         with st.spinner("AI દ્વારા પાકની તપાસ થઈ રહી છે, કૃપા કરીને થોડી સેકન્ડ રાહ જુઓ..."):
             try:
-                # Gemini 1.5 Flash મોડલ
-                model = genai.GenerativeModel('gemini-1.5-flash')
+                # ગૂગલ ક્લાયન્ટ સેટઅપ
+                client = genai.Client(api_key="AQ.Ab8RN6K8loPxUYK4FQkkN2punNiSY9tKVV5LoJvQW1VncVB9Tg")
+
                 prompt = """
                 તમે એક અનુભવી કૃષિ વૈજ્ઞાનિક (Plant Doctor) છો.
                 આ ફોટાનું નિરીક્ષણ કરી ખેડૂત મિત્ર માટે એકદમ સરળ અને શુદ્ધ ગુજરાતીમાં નીચે મુજબ જ મુદ્દાસર માહિતી આપો:
@@ -37,7 +34,11 @@ if uploaded_file is not None:
                 5. કેટલા દિવસમાં રોગ સંપૂર્ણ મટી જશે.
                 ખેડૂત સહેલાઈથી સમજી શકે તેવી વ્યવહારુ ભાષા રાખવી.
                 """
-                response = model.generate_content([prompt, image])
+
+                response = client.models.generate_content(
+                    model='gemini-2.5-flash',
+                    contents=[prompt, image]
+                )
                 result_text = response.text
 
                 st.success("✅ તપાસ પૂર્ણ થઈ ગઈ છે!")
